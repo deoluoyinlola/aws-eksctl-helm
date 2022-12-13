@@ -3,10 +3,9 @@ Kubernetes cluster provisioned with eksctl, manage by helm and monitor with prom
 
 # Contents
 * [Architecture](#architecture)
-* [Project Requirement](#project-requirement)
+* [Project Objective](#project-Objective)
 * [Main Tools Used](#main-tools-used)
-* [Project Deliverables](#project-deliverables)
-* [Documentation](#documentation)
+* [Demo](#demo)
   * [Provision cluster with eskctl](#provision-cluster-with-eskctl)
     * [Master node](#master-node)
     * [Connect kubernetes with cluster](#connect-kubernetes-with-cluster)
@@ -22,7 +21,7 @@ Kubernetes cluster provisioned with eksctl, manage by helm and monitor with prom
 ## Architecture
 ![design](docs/assets/designs.svg)
 
-## Project Requirement
+## Project Objective
 - 
 - 
 - 
@@ -36,18 +35,13 @@ Kubernetes cluster provisioned with eksctl, manage by helm and monitor with prom
 - [prometheus](https://prometheus.io/) - An open-source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
 - [grafana](https://grafana.com/) - Grafana is the open source analytics & monitoring solution for every database.
 
-
-## Project Deliverables
-![d-app](docs/assets/d-app.png)
-
-
-## Documentation
+## Demo
 From the architecture flow shown;
 Git --> GitHub --> eskctl --> helm --> kubernetes cluster --> prometheus --> Grafana
 ![design](docs/assets/designs.svg)
 
 ### Provision cluster with eskctl
-- 
+- Creating cluster in the default region and without config file, run; ``eksctl create cluster``
 #### Master node
 
 ## Lesson learnt
