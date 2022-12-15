@@ -1,0 +1,57 @@
+releases:
+  - name: rediscart
+    chart: charts/redis
+    values: 
+      - values/redis-values.yaml
+      - appReplicas: "1"
+      - volumeName: "redis-cart-data"
+  
+  - name: emailservice
+    chart: charts/common
+    values:
+      - values/email-service-values.yaml
+
+  - name: cartservice
+    chart: charts/common
+    values:
+      - values/cart-service-values.yaml    
+
+  - name: currencyservice
+    chart: charts/common
+    values:
+      - values/currency-service-values.yaml   
+
+  - name: paymentservice
+    chart: charts/common
+    values:
+      - values/payment-service-values.yaml
+
+  - name: recommendationservice
+    chart: charts/common
+    values:
+      - values/recommendation-service-values.yaml
+
+  - name: productcatalogservice
+    chart: charts/common
+    values:
+      - values/productcatalog-service-values.yaml
+
+  - name: shippingservice
+    chart: charts/common
+    values:
+      - values/shipping-service-values.yaml
+
+  - name: adservice
+    chart: charts/common
+    values:
+      - values/ad-service-values.yaml
+
+  - name: checkoutservice
+    chart: charts/common
+    values:
+      - values/checkout-service-values.yaml
+
+  - name: frontendservice
+    chart: charts/common
+    values:
+      - values/frontend-values.yaml

@@ -13,7 +13,7 @@ A demostration of how I provisioned kubernetes cluster with eksctl, manage the m
     * [Configure auto-scaling](#configure-auto-scaling)
   * [Deploy Microservices with helmfile](#deploy-microservices-with-helmfile)
     * [Create helm chart](#create-helm-chart)
-    * [Deploy apps to cluster](#deploy-apps-to-cluster)
+    * [Deploy services to cluster](#deploy-services-to-cluster)
   * [Deploy Prometheus Monitoring Stack](#deploy-prometheus-monitoring-stack)
     * [Monitoring at Infra](#monitoring-at-infra)
     * [Monitoring at Platform](#monitoring-at-platform)
@@ -76,21 +76,61 @@ kubectl config get-contexts
 kubectl get svc
 ```
 ![aws-get](docs/aws-get.png)
+
 ### Deploy Microservices with helmfile
 Let’s quickly remind ourselves that;
 - The microservices source code repository for this project is from this link; [google-microservices-demo](https://github.com/GoogleCloudPlatform/microservices-demo), containing 11 services I will be deploying with this demo. Among the services, Frontend serve as entrypoint for all the service receiving externally request from the browser. The load generator deployment is optional.
 - Also, image names for each microservice, expected environment variables including which port each starts and decision on namespace depending on developer's access must be a collaborative effort between Dev and Ops team.
 Before moving on with the following steps, get helm installed [helm](https://helm.sh/docs/intro/install/)
+- The exact file structure;
+![file-strt](docs/file-strt.png)
 
 #### Create helm chart
-- Step 1: Create shared helm chart for the 10 microservices, run the command
+- Step 1: Create shared helm chart for the 10 microservices by running this command;
 ```
 helm create common
 ```
-It should auto generate a folder named after what we call our chart, containing; charts folder, template folder, Chart.yaml, values.yaml, .helmignore file
+It should auto generate a folder named after what we call our chart, containing; charts folder, template folder, Chart.yaml, values.yaml, .helmignore file.
+Optionally, if so desire to deploy with kubernetes declaratively, create a config.yaml, that contains defination for deployment and service for all the microservices. 
 - Step 2: Inside template folder create deployment and service blueprint by configuring the ``deployment.yaml`` and ``service.yaml``
-- Step 3: Define the actual values for the template files inside ``values.yaml``
+- Step 3: Set the -range built-in function for working with lists of environment variables; mostly use in the env attribute and also observe quote built-in function for working with string value.
+- Step 4: In the ``values.yaml`` file where we define the variable name in flat structure, set the default values for the template files.
+- Step 5; Create chart for redis. Similar processes to how we create common chart. cd into the charts folder, then run;
+```
+helm create redis
+```
+- Step 6; Create a folder named values at the root of project directory, that will contain config files for all microservice which will override the default value in the ``values.yaml``
 
+#### Deploy services to cluster
+- Step 1; To preview if the config files for each service defined are correct before actual deployment, run this command for each service file;
+```
+helm template -f <path/to/file> <path/to/chart>
+```
+![helm-template](docs/helm-template.png)
+- Step 2; Individually check if microservices successfully deploy microservices to the cluster. 
+```
+helm install -f <file-name> <releases-name> <chart-name>
+```
+- Step 3; To list the deployed microsservices with this command;
+```
+helm ls
+```
+or 
+```
+kubectl get pod
+```
+- Step 4; Install helmfile tool, for macOS user;
+```
+brew install helmfile
+```
+![helmfile-install](docs/helmfile-install.png)
+- Step 5; Create and configure a helmfile - ``helmfile.yaml``
+- Step 6; Declare the manifest into the cluster;
+```
+helmfile sync
+```
+![ms-deploy](docs/ms-deploy.png)
+![ms-deploy-aws](docs/ms-deploy-aws.png)
 
 ## Lesson learnt
 
