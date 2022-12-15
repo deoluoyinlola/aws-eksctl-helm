@@ -83,6 +83,7 @@ Let’s quickly remind ourselves that;
 - Also, image names for each microservice, expected environment variables including which port each starts and decision on namespace depending on developer's access must be a collaborative effort between Dev and Ops team.
 Before moving on with the following steps, get helm installed [helm](https://helm.sh/docs/intro/install/)
 - The exact file structure;
+
 ![file-strt](docs/file-strt.png)
 
 #### Create helm chart
