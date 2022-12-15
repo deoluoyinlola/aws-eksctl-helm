@@ -9,8 +9,7 @@ A demostration of how I provisioned kubernetes cluster with eksctl, manage the m
   * [Tools](#tools)
 * [Demo](#demo)
   * [Provision cluster with eskctl](#provision-cluster-with-eskctl)
-    * [Master node](#master-node)
-    * [Connect kubernetes with cluster](#connect-kubernetes-with-cluster)
+    * [Configure kubectl to communicate with cluster](#configure-kubectl-to-communicate-with-cluster)
     * [Configure auto-scaling](#configure-auto-scaling)
   * [Deploy Microservices with helmfile](#deploy-microservices-with-helmfile)
     * [Create helm chart](#create-helm-chart)
@@ -26,9 +25,10 @@ A demostration of how I provisioned kubernetes cluster with eksctl, manage the m
 ![design](docs/assets/designs.svg)
 
 ## Project Objective
-- By the end of the first part of this project, we will know how to provision kubernetes cluster resources in AWS with help of eksctl.
-- Through the end of second part of the project, we will have master how to deploy highly scalable microservices application with helmfile.
-- And in the final part, we will know how to monitor at infrastructure and application level with prometheus and grafana for visualization.
+By the end of each part of this project, we will know how to;
+- provision scalable managed kubernetes(eks) cluster resources in AWS with the help of eksctl.
+- deploy highly performant microservices applications with helmfile.
+- Amonitor at infrastructure and application level with prometheus and grafana for visualization.
 
 ## Pre-requisities
 - So that we all be on the same page, it will be nice to have following in our tool belt;
@@ -52,7 +52,7 @@ Git --> GitHub --> eskctl --> helmfile --> kubernetes cluster --> prometheus -->
 - Step 1: Programmatic access; 
 ![aws-configure](docs/aws-configure.png)
 - Step 2: Install and configure kubectl, AWS CLI and eksctl. [Link to How](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html). Be careful to set and utilise profile name when working with multiple accounts in your machine.
-- Step 3: Creating cluster with 1) a name 2) version 1.22 3) nodegroup name, type and number in a specify region. Run the command; 
+- Step 3: Creating cluster with (1.) a name (2.) version 1.22 (3.) nodegroup name, type and number in a specify region. Run the command; 
 ```
 eksctl create cluster --name ecommerce --version 1.22 --nodegroup-name clusternode --node-type t3.micro --nodes 2 --managed
 ```
@@ -62,6 +62,20 @@ eksctl create cluster --name ecommerce --version 1.22 --nodegroup-name clusterno
 ![aws-cluster](docs/aws-eks.png)
 With this command, we have successfuly create a eks cluster with 2 nodegroup.
 
+#### Configure kubectl to communicate with cluster
+- Step 1; Configure your computer to communicate with your cluster. Run the command;
+```
+aws eks update-kubeconfig --region us-east-1 --name ecommerce
+```
+![aws-kubeconfig](docs/aws-kubeconfig.png)
+- Step 2; Confirm your context and test your configuration. Run these commands first to list your contexts and check your configuration
+```
+kubectl config get-contexts
+```
+```
+kubectl get svc
+```
+![aws-get](docs/aws-get.png)
 ### Deploy Microservices with helmfile
 Let’s quickly remind ourselves that;
 - The microservices source code repository for this project is from this link; [google-microservices-demo](https://github.com/GoogleCloudPlatform/microservices-demo), containing 11 services I will be deploying with this demo. Among the services, Frontend serve as entrypoint for all the service receiving externally request from the browser. The load generator deployment is optional.
