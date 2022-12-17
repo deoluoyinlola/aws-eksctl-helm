@@ -1,5 +1,5 @@
-# aws-eksctl-with-helm-prometheus
-A demostration of how I provisioned kubernetes cluster with eksctl, manage the microservices by helm, monitor both the infrastructure and application with prometheus and visualize the result with grafana for an online-shopping webapp.
+# aws-eksctl-with-helm
+A demostration of how I provisioned kubernetes cluster with eksctl and manage the microservices by helm
 
 # Contents
 * [Architecture](#architecture)
@@ -14,12 +14,7 @@ A demostration of how I provisioned kubernetes cluster with eksctl, manage the m
   * [Deploy Microservices with helmfile](#deploy-microservices-with-helmfile)
     * [Create helm chart](#create-helm-chart)
     * [Deploy services to cluster](#deploy-services-to-cluster)
-  * [Deploy Prometheus Monitoring Stack](#deploy-prometheus-monitoring-stack)
-    * [Monitoring at Infra](#monitoring-at-infra)
-    * [Monitoring at Platform](#monitoring-at-platform)
-    * [Monitoring at Application](#monitoring-at-application)
 * [Resources](#resources)
-* [Lesson learnt](#lesson-learnt)
 
 ## Architecture
 ![design](docs/assets/designs.svg)
@@ -28,7 +23,6 @@ A demostration of how I provisioned kubernetes cluster with eksctl, manage the m
 By the end of each part of this project, we will know how to;
 - provision scalable managed kubernetes(eks) cluster resources in AWS with the help of eksctl.
 - deploy highly performant microservices applications with helmfile.
-- Amonitor at infrastructure and application level with prometheus and grafana for visualization.
 
 ## Pre-requisities
 - So that we all be on the same page, it will be nice to have following in our tool belt;
@@ -40,8 +34,6 @@ By the end of each part of this project, we will know how to;
 - [VSCode](https://code.visualstudio.com/) - a source-code editor made by Microsoft with the Electron Framework, for Windows, Linux and macOS.
 - [helm](https://helm.sh/) - Helm helps you manage Kubernetes applications — Helm Charts help you define, install, and upgrade even the most complex Kubernetes application.
 - [eksctl](https://eksctl.io/) - a simple CLI tool for creating and managing clusters on EKS - Amazon's managed Kubernetes service for EC2.
-- [prometheus](https://prometheus.io/) - An open-source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
-- [grafana](https://grafana.com/) - Grafana is the open source analytics & monitoring solution for every database.
 
 ## Demo
 From the architecture flow shown;
@@ -132,11 +124,13 @@ helmfile sync
 ```
 ![ms-deploy](docs/ms-deploy.png)
 ![ms-deploy-aws](docs/ms-deploy-aws.png)
-
-## Lesson learnt
+- Step 7; To destroy;
+```
+helm destroy
+```
 
 ## Resources
 The following are useful resources that really contribute to actualise this project;
-- Docs; aws doc, helm doc, eksctl doc, prometheus doc, grafana doc
+- Docs; aws doc, helm doc, eksctl doc
 - YouTube Channels; TechWorldWithNana, Cloud With Raj, Be A Better Dev, DevOps Made Easy
 - Repo; 
