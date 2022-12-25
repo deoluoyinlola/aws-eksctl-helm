@@ -1,5 +1,5 @@
 # aws-eksctl-with-helm
-A demostration of how I provisioned kubernetes cluster with eksctl and manage the microservices by helm
+A demostration of how I provisioned kubernetes cluster with eksctl and manage the microservices by helm. This blog post further explain in details; [blog post](https://dev.to/deoluoyinlola/keep-calm-kubernetes-cluster-with-helm-file-1172)
 
 # Contents
 * [Architecture](#architecture)
